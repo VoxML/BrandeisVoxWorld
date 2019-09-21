@@ -158,6 +158,9 @@ Logs*
 # ignore EpiSim user models folder
 EpiSim/UserModels*
 
+# ignore FlashbackRecorder output folder
+FlashbackRecorder*
+
 # ignore local configurations folder
 local_config
 
