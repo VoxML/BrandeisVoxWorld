@@ -118,15 +118,15 @@ public class ReferringExpressionGenerator : MonoBehaviour {
 	void Update() {
 		if (!itemsInited) {
 			for (int i = 0; i < landmarks.Count; i++) {
-				landmarks[i] = landmarks[i] != Helper.GetMostImmediateParentVoxeme(landmarks[i])
-					? Helper.GetMostImmediateParentVoxeme(landmarks[i])
+				landmarks[i] = landmarks[i] != GlobalHelper.GetMostImmediateParentVoxeme(landmarks[i])
+					? GlobalHelper.GetMostImmediateParentVoxeme(landmarks[i])
 					: landmarks[i];
 			}
 
 			for (int i = 0; i < world.availableObjs.Count; i++) {
 				world.availableObjs[i] =
-					world.availableObjs[i] != Helper.GetMostImmediateParentVoxeme(world.availableObjs[i])
-						? Helper.GetMostImmediateParentVoxeme(world.availableObjs[i])
+					world.availableObjs[i] != GlobalHelper.GetMostImmediateParentVoxeme(world.availableObjs[i])
+						? GlobalHelper.GetMostImmediateParentVoxeme(world.availableObjs[i])
 						: world.availableObjs[i];
 			}
 
@@ -136,8 +136,8 @@ public class ReferringExpressionGenerator : MonoBehaviour {
 
 		if (resituateItems) {
 			PlaceRandomly(
-				world.demoSurface != Helper.GetMostImmediateParentVoxeme(world.demoSurface)
-					? Helper.GetMostImmediateParentVoxeme(world.demoSurface)
+				world.demoSurface != GlobalHelper.GetMostImmediateParentVoxeme(world.demoSurface)
+					? GlobalHelper.GetMostImmediateParentVoxeme(world.demoSurface)
 					: world.demoSurface,
 				landmarks, world.availableObjs);
 			behaviorController.GetComponent<RelationTracker>().SurveyRelations();
@@ -152,17 +152,17 @@ public class ReferringExpressionGenerator : MonoBehaviour {
 			Physics.Raycast(ray, out hit);
 
 			if (hit.collider != null) {
-				if (world.availableObjs.Contains(Helper.GetMostImmediateParentVoxeme(hit.collider.gameObject))) {
+				if (world.availableObjs.Contains(GlobalHelper.GetMostImmediateParentVoxeme(hit.collider.gameObject))) {
 					OnObjectSelected(this,
-						new SelectionEventArgs(Helper.GetMostImmediateParentVoxeme(hit.collider.gameObject)));
+						new SelectionEventArgs(GlobalHelper.GetMostImmediateParentVoxeme(hit.collider.gameObject)));
 				}
 			}
 		}
 
 		if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && (Input.GetKeyDown(KeyCode.R))) {
 			PlaceRandomly(
-				world.demoSurface != Helper.GetMostImmediateParentVoxeme(world.demoSurface)
-					? Helper.GetMostImmediateParentVoxeme(world.demoSurface)
+				world.demoSurface != GlobalHelper.GetMostImmediateParentVoxeme(world.demoSurface)
+					? GlobalHelper.GetMostImmediateParentVoxeme(world.demoSurface)
 					: world.demoSurface,
 				landmarks, world.availableObjs);
 			behaviorController.GetComponent<RelationTracker>().SurveyRelations();
@@ -185,17 +185,17 @@ public class ReferringExpressionGenerator : MonoBehaviour {
 	void PlaceRandomly(GameObject surface, List<GameObject> landmarkObjs, List<GameObject> focusObjs) {
 		// place landmarks
 		foreach (GameObject landmark in landmarkObjs) {
-			Vector3 coord = Helper.FindClearRegion(surface, landmark).center;
+			Vector3 coord = GlobalHelper.FindClearRegion(surface, landmark).center;
 			landmark.transform.position = new Vector3(coord.x,
-				coord.y + Helper.GetObjectWorldSize(landmark).extents.y, coord.z);
+				coord.y + GlobalHelper.GetObjectWorldSize(landmark).extents.y, coord.z);
 			landmark.GetComponent<Voxeme>().targetPosition = landmark.transform.position;
 		}
 
 		// place focus objects
 		foreach (GameObject obj in focusObjs) {
-			Vector3 coord = Helper.FindClearRegion(surface, obj).center;
+			Vector3 coord = GlobalHelper.FindClearRegion(surface, obj).center;
 			obj.transform.position = new Vector3(coord.x,
-				coord.y + Helper.GetObjectWorldSize(obj).extents.y, coord.z);
+				coord.y + GlobalHelper.GetObjectWorldSize(obj).extents.y, coord.z);
 			obj.GetComponent<Voxeme>().targetPosition = obj.transform.position;
 		}
 	}
@@ -210,14 +210,14 @@ public class ReferringExpressionGenerator : MonoBehaviour {
 
 		focusObj = ((SelectionEventArgs) e).Content as GameObject;
 		Debug.Log(string.Format("Focused on {0}, world @ {1} screen @ {2}", focusObj.name,
-			Helper.VectorToParsable(focusObj.transform.position),
-			Helper.VectorToParsable(Camera.main.WorldToScreenPoint(focusObj.transform.position))));
+			GlobalHelper.VectorToParsable(focusObj.transform.position),
+			GlobalHelper.VectorToParsable(Camera.main.WorldToScreenPoint(focusObj.transform.position))));
 
 		focusCircle.enabled = true;
 		focusCircle.transform.position = new Vector3(focusObj.transform.position.x,
-			Helper.GetObjectWorldSize(focusObj).max.y,
+			GlobalHelper.GetObjectWorldSize(focusObj).max.y,
 			focusObj.transform.position.z);
-		//Debug.Log(Helper.VectorToParsable(focusCircle.transform.position));
+		//Debug.Log(GlobalHelper.VectorToParsable(focusCircle.transform.position));
 		focusTimeoutTimer.Interval = focusTimeoutTime;
 		focusTimeoutTimer.Enabled = true;
 		spriteAnimator.enabled = true;
@@ -334,7 +334,7 @@ public class ReferringExpressionGenerator : MonoBehaviour {
 		foreach (DictionaryEntry dictEntry in relationTracker.relations) {
 			if (((dictEntry.Key as List<GameObject>)[0] == focusObj) &&
 			    (!landmarks.Contains((dictEntry.Key as List<GameObject>)[1])) &&
-			    ((dictEntry.Key as List<GameObject>)[1] != Helper.GetMostImmediateParentVoxeme(world.demoSurface))) {
+			    ((dictEntry.Key as List<GameObject>)[1] != GlobalHelper.GetMostImmediateParentVoxeme(world.demoSurface))) {
 				focusObjRelations.Add(new Pair<GameObject, string>(
 					(dictEntry.Key as List<GameObject>).Where(o => o != focusObj).ToList()[0],
 					dictEntry.Value as string));

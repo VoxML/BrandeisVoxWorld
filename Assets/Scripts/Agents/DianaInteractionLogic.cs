@@ -66,7 +66,7 @@ public class StackSymbolContent : IEquatable<Object> {
 			//				Debug.Log(string.Format("{0} == {1}:{2}",
 			//					(GameObject)GraspedObj,(GameObject)tuple.GraspedObj,(GameObject)GraspedObj == (GameObject)tuple.GraspedObj));
 			//				Debug.Log(string.Format("{0} == {1}:{2}",
-			//					(Region)IndicatedRegion,(Region)tuple.IndicatedRegion,Helper.RegionsEqual((Region)IndicatedRegion, (Region)tuple.IndicatedRegion)));
+			//					(Region)IndicatedRegion,(Region)tuple.IndicatedRegion,GlobalHelper.RegionsEqual((Region)IndicatedRegion, (Region)tuple.IndicatedRegion)));
 			//				Debug.Log(string.Format("{0} == {1}:{2}",
 			//					string.Format ("[{0}]", String.Join (", ", ((List<GameObject>)ObjectOptions).Select (o => o.name).ToArray ())),
 			//					string.Format ("[{0}]", String.Join (", ", ((List<GameObject>)tuple.ObjectOptions).Select (o => o.name).ToArray ())),
@@ -82,7 +82,7 @@ public class StackSymbolContent : IEquatable<Object> {
 
 			return (GameObject) IndicatedObj == (GameObject) tuple.IndicatedObj &&
 			       (GameObject) GraspedObj == (GameObject) tuple.GraspedObj &&
-			       Helper.RegionsEqual((Region) IndicatedRegion, (Region) tuple.IndicatedRegion) &&
+			       GlobalHelper.RegionsEqual((Region) IndicatedRegion, (Region) tuple.IndicatedRegion) &&
 			       ((List<GameObject>) ObjectOptions).SequenceEqual((List<GameObject>) tuple.ObjectOptions) &&
 			       ((List<string>) ActionOptions).SequenceEqual((List<string>) tuple.ActionOptions) &&
 			       ((List<string>) ActionSuggestions).SequenceEqual((List<string>) tuple.ActionSuggestions);
@@ -678,7 +678,7 @@ public class DianaInteractionLogic : CharacterLogicAutomaton {
 
 	public List<string> GeneratePutAtRegionCommand(object arg) {
 		List<string> actionList = new List<string>(
-			new string[] {"put({0}" + string.Format(",{0})", Helper.VectorToParsable(IndicatedRegion.center))});
+			new string[] {"put({0}" + string.Format(",{0})", GlobalHelper.VectorToParsable(IndicatedRegion.center))});
 
 		return actionList;
 	}
@@ -3397,7 +3397,7 @@ public class DianaInteractionLogic : CharacterLogicAutomaton {
 						? "Null"
 						: content.IndicatedRegion.GetType() == typeof(FunctionDelegate)
 							? ((FunctionDelegate) content.IndicatedRegion).ToString()
-							: Helper.RegionToString((Region) content.IndicatedRegion),
+							: GlobalHelper.RegionToString((Region) content.IndicatedRegion),
 					content.ObjectOptions == null
 						? "Null"
 						: content.ObjectOptions.GetType() == typeof(FunctionDelegate)
@@ -3463,7 +3463,7 @@ public class DianaInteractionLogic : CharacterLogicAutomaton {
 					? "Null"
 					: content.IndicatedRegion.GetType() == typeof(FunctionDelegate)
 						? ((FunctionDelegate) content.IndicatedRegion).ToString()
-						: Helper.RegionToString((Region) content.IndicatedRegion),
+						: GlobalHelper.RegionToString((Region) content.IndicatedRegion),
 				content.ObjectOptions == null
 					? "Null"
 					: content.ObjectOptions.GetType() == typeof(FunctionDelegate)

@@ -735,7 +735,7 @@ public class MITRETrial5Script : DemoScript {
 		mostRecentGesture = "POINT_AT({0})";
 		GameObject grasper;
 
-		Bounds bounds = Helper.GetObjectWorldSize(obj);
+		Bounds bounds = GlobalHelper.GetObjectWorldSize(obj);
 
 		// which hand is closer?
 		float leftToGoalDist = (leftGrasper.transform.position - bounds.ClosestPoint(leftGrasper.transform.position))
@@ -930,7 +930,7 @@ public class MITRETrial5Script : DemoScript {
 	}
 
 	void CheckAgreement(bool satisfied) {
-		List<object> diff = Helper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
+		List<object> diff = GlobalHelper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
 		OnLogEvent(this, new LogEventArgs("Result: " + string.Join(";", diff.Cast<string>().ToArray())));
 		if (satisfied) {
 			OnLogEvent(this, new LogEventArgs("Response: Agreement"));

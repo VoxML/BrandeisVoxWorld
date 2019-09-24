@@ -30,7 +30,7 @@ namespace VoxSimPlatform {
     	void Update() {
     		if (interTargetPositions.Count == 0) {
     			// no queued path
-    			if (!Helper.VectorIsNaN(targetPosition)) {
+    			if (!GlobalHelper.VectorIsNaN(targetPosition)) {
     				// has valid destination
     				if (transform.position != targetPosition) {
     					Vector3 offset = MoveToward(targetPosition);

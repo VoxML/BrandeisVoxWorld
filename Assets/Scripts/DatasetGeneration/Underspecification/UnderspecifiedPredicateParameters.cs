@@ -261,8 +261,8 @@ public static class UnderspecifiedPredicateParameters {
 	}
 
 	public static string FilterSpecifiedManner(string parse) {
-		Hashtable predArgs = Helper.ParsePredicate(parse);
-		string pred = Helper.GetTopPredicate(parse);
+		Hashtable predArgs = GlobalHelper.ParsePredicate(parse);
+		string pred = GlobalHelper.GetTopPredicate(parse);
 
 		string outValue = parse;
 
@@ -334,7 +334,7 @@ public static class UnderspecifiedPredicateParameters {
 				? GameObject.Find(directObjName)
 				: objSelector.disabledObjects.Find(o => o.name == directObjName);
 			GameObject obj = RandomHelper.RandomVoxeme(vidCap.availableObjs, new List<GameObject>() {directObj});
-//			while (Helper.GetMostImmediateParentVoxeme (obj).gameObject.transform.parent != null) {
+//			while (GlobalHelper.GetMostImmediateParentVoxeme (obj).gameObject.transform.parent != null) {
 //				obj = RandomHelper.RandomVoxeme (vidCap.availableObjs, new List<GameObject>(){ GameObject.Find (directObj) });
 //				Debug.Log (obj.name);
 //			}

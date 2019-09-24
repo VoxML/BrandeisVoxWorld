@@ -32,14 +32,14 @@ public class Macros : MonoBehaviour {
 					foreach (Voxeme voxeme in objSelector.allVoxemes) {
 						if (voxeme.gameObject.activeInHierarchy) {
 							if ((voxeme.gameObject != mug) && (voxeme.gameObject != table)) {
-								if ((Helper.GetObjectWorldSize(voxeme.gameObject).size.x >=
-								     Helper.GetObjectWorldSize(mugInterior).size.x) &&
-								    (Helper.GetObjectWorldSize(voxeme.gameObject).size.z >=
-								     Helper.GetObjectWorldSize(mugInterior).size.z)) {
+								if ((GlobalHelper.GetObjectWorldSize(voxeme.gameObject).size.x >=
+								     GlobalHelper.GetObjectWorldSize(mugInterior).size.x) &&
+								    (GlobalHelper.GetObjectWorldSize(voxeme.gameObject).size.z >=
+								     GlobalHelper.GetObjectWorldSize(mugInterior).size.z)) {
 									lids.Add(voxeme.gameObject);
-									lids = lids.OrderBy(o => (Helper.GetObjectWorldSize(o).size.x +
-									                          Helper.GetObjectWorldSize(o).size.z) *
-									                         Helper.GetObjectWorldSize(o).size.y).ToList();
+									lids = lids.OrderBy(o => (GlobalHelper.GetObjectWorldSize(o).size.x +
+									                          GlobalHelper.GetObjectWorldSize(o).size.z) *
+									                         GlobalHelper.GetObjectWorldSize(o).size.y).ToList();
 								}
 							}
 						}

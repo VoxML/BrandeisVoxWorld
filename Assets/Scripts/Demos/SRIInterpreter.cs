@@ -66,7 +66,7 @@ public class SRIInterpreter : MonoBehaviour {
 					//GameObject block = GameObject.Find("block"+blockStates["BlockStates"][i]["ID"]);
 
 					Vector3 targetPosition =
-						Helper.ParsableToVector(
+						GlobalHelper.ParsableToVector(
 							((String) blockStates["BlockStates"][i]["Position"]).Replace(",", ";"));
 					temp = targetPosition.y;
 					targetPosition.y = targetPosition.z;
@@ -77,7 +77,7 @@ public class SRIInterpreter : MonoBehaviour {
 					targetPosition.z *= voxTableSize.y / sriTableSize.y;
 
 					Quaternion targetRotation =
-						Helper.ParsableToQuaternion(
+						GlobalHelper.ParsableToQuaternion(
 							((String) blockStates["BlockStates"][i]["Rotation"]).Replace(",", ";"));
 					//temp = targetRotation.y;
 					//targetRotation.y = targetRotation.z;

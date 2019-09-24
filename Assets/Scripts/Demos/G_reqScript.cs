@@ -208,7 +208,7 @@ public class G_reqScript : DemoScript {
 
 				if (humanMoveComplete) {
 					List<object> diff =
-						Helper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
+						GlobalHelper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
 					OnLogEvent(this, new LogEventArgs("Result: " + string.Join(";", diff.Cast<string>().ToArray())));
 					if (satisfied) {
 						OnLogEvent(this, new LogEventArgs("Response: Agreement"));
@@ -316,7 +316,7 @@ public class G_reqScript : DemoScript {
 
 				if (humanMoveComplete) {
 					List<object> diff =
-						Helper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
+						GlobalHelper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
 					OnLogEvent(this, new LogEventArgs("Result: " + string.Join(";", diff.Cast<string>().ToArray())));
 					if (satisfied) {
 						OnLogEvent(this, new LogEventArgs("Response: Agreement"));
@@ -424,7 +424,7 @@ public class G_reqScript : DemoScript {
 
 				if (humanMoveComplete) {
 					List<object> diff =
-						Helper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
+						GlobalHelper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
 					OnLogEvent(this, new LogEventArgs("Result: " + string.Join(";", diff.Cast<string>().ToArray())));
 					if (satisfied) {
 						OnLogEvent(this, new LogEventArgs("Response: Agreement"));
@@ -515,7 +515,7 @@ public class G_reqScript : DemoScript {
 
 				if (humanMoveComplete) {
 					List<object> diff =
-						Helper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
+						GlobalHelper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
 					OnLogEvent(this, new LogEventArgs("Result: " + string.Join(";", diff.Cast<string>().ToArray())));
 					if (satisfied) {
 						OnLogEvent(this, new LogEventArgs("Response: Agreement"));
@@ -606,7 +606,7 @@ public class G_reqScript : DemoScript {
 
 				if (humanMoveComplete) {
 					List<object> diff =
-						Helper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
+						GlobalHelper.DiffLists(currentState, relationTracker.relStrings.Cast<object>().ToList());
 					OnLogEvent(this, new LogEventArgs("Result: " + string.Join(";", diff.Cast<string>().ToArray())));
 					if (satisfied) {
 						OnLogEvent(this, new LogEventArgs("Response: Agreement"));
@@ -687,7 +687,7 @@ public class G_reqScript : DemoScript {
 		mostRecentGesture = "POINT_AT({0})";
 		GameObject grasper;
 
-		Bounds bounds = Helper.GetObjectWorldSize(obj);
+		Bounds bounds = GlobalHelper.GetObjectWorldSize(obj);
 
 		// which hand is closer?
 		float leftToGoalDist = (leftGrasper.transform.position - bounds.ClosestPoint(leftGrasper.transform.position))

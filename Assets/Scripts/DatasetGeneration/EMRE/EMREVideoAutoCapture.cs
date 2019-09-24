@@ -174,7 +174,7 @@ public class EMREVideoAutoCapture : MonoBehaviour {
 			dbEntry.FocusObj = refExpGenerator.focusObj.name;
 			dbEntry.ObjCoords = String.Join("\n",
 				refExpGenerator.objSelector.allVoxemes.Select(
-						v => string.Format("{0}:{1}", v.name, Helper.VectorToParsable(v.transform.position)))
+						v => string.Format("{0}:{1}", v.name, GlobalHelper.VectorToParsable(v.transform.position)))
 					.ToArray());
 			dbEntry.RefModality = referringModalities[expModalityIndex].ToString();
 			dbEntry.DescriptionStr = refExpGenerator.fullDesc;

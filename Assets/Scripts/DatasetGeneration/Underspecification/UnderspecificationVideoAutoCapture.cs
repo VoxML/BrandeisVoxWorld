@@ -227,7 +227,7 @@ public class UnderspecificationVideoAutoCapture : MonoBehaviour {
 		}
 
 		for (int i = 0; i < availableObjs.Count; i++) {
-			availableObjs[i] = Helper.GetMostImmediateParentVoxeme(availableObjs[i]);
+			availableObjs[i] = GlobalHelper.GetMostImmediateParentVoxeme(availableObjs[i]);
 		}
 	}
 
@@ -291,7 +291,7 @@ public class UnderspecificationVideoAutoCapture : MonoBehaviour {
 		if (dbEntry != null) {
 			dbEntry.Parse = parse;
 
-			dbEntry.EventPredicate = Helper.GetTopPredicate(dbEntry.Parse);
+			dbEntry.EventPredicate = GlobalHelper.GetTopPredicate(dbEntry.Parse);
 		}
 
 		paramValues = UnderspecifiedPredicateParameters.InitPredicateParametersCollection();
@@ -508,10 +508,10 @@ public class UnderspecificationVideoAutoCapture : MonoBehaviour {
 //				Debug.Log (key + " " + values [key]);
 //			}
 //			Debug.Break ();
-		//dbEntry.ParameterValues = Helper.SerializeObjectToBinary (values);
+		//dbEntry.ParameterValues = GlobalHelper.SerializeObjectToBinary (values);
 
 		if (dbEntry != null) {
-			dbEntry.ParameterValues = Helper.SerializeObjectToJSON(new PredicateParametersJSON(values));
+			dbEntry.ParameterValues = GlobalHelper.SerializeObjectToJSON(new PredicateParametersJSON(values));
 		}
 
 		if ((captureParams) && (!captureVideo)) {

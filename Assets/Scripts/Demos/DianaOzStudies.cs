@@ -142,7 +142,7 @@ public class DianaOzStudies : MonoBehaviour {
 						else if (Regex.IsMatch(dict.question, @".*<.+; .+; .+>\?")) {
 							string coord = Regex.Match(dict.question, @"<.+; .+; .+>").Value;
 							world.RespondAndUpdate(Regex.Replace(dict.question, @"<.+; .+; .+>", "here"));
-							world.ReachFor(Helper.ParsableToVector(coord));
+							world.ReachFor(GlobalHelper.ParsableToVector(coord));
 						}
 						else {
 							world.RespondAndUpdate(dict.question);

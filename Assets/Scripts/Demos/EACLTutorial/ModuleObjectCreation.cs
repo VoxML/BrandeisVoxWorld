@@ -108,13 +108,13 @@ public class ModuleObjectCreation : ModalWindow {
 
 	// Update is called once per frame
 	void Update() {
-		if (sandboxSurface != Helper.GetMostImmediateParentVoxeme(sandboxSurface)) {
-			sandboxSurface = Helper.GetMostImmediateParentVoxeme(sandboxSurface);
+		if (sandboxSurface != GlobalHelper.GetMostImmediateParentVoxeme(sandboxSurface)) {
+			sandboxSurface = GlobalHelper.GetMostImmediateParentVoxeme(sandboxSurface);
 		}
 
 		if (placementState == PlacementState.Delete) {
 			if (Input.GetMouseButtonDown(0)) {
-				if (Helper.PointOutsideMaskedAreas(
+				if (GlobalHelper.PointOutsideMaskedAreas(
 					new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y),
 					new Rect[] {
 						new Rect(Screen.width - (15 + (int) (110 * fontSizeModifier / 3)) + 38 * fontSizeModifier - 60,
@@ -146,14 +146,14 @@ public class ModuleObjectCreation : ModalWindow {
 						Debug.Log(selectRayhit.point.y);
 						if (Mathf.Abs(selectRayhit.point.y - ((Vector3)preds.ComposeRelation(voxmlLibrary.VoxMLObjectDict["on"], new object[] {sandboxSurface})).y) <=
 						    Constants.EPSILON) {
-							if ((Mathf.Abs(selectRayhit.point.x - Helper.GetObjectWorldSize(sandboxSurface).min.x) >=
-							     Helper.GetObjectWorldSize(selectedObject).extents.x) &&
-							    (Mathf.Abs(selectRayhit.point.x - Helper.GetObjectWorldSize(sandboxSurface).max.x) >=
-							     Helper.GetObjectWorldSize(selectedObject).extents.x) &&
-							    (Mathf.Abs(selectRayhit.point.z - Helper.GetObjectWorldSize(sandboxSurface).min.z) >=
-							     Helper.GetObjectWorldSize(selectedObject).extents.z) &&
-							    (Mathf.Abs(selectRayhit.point.z - Helper.GetObjectWorldSize(sandboxSurface).max.z) >=
-							     Helper.GetObjectWorldSize(selectedObject).extents.z)) {
+							if ((Mathf.Abs(selectRayhit.point.x - GlobalHelper.GetObjectWorldSize(sandboxSurface).min.x) >=
+							     GlobalHelper.GetObjectWorldSize(selectedObject).extents.x) &&
+							    (Mathf.Abs(selectRayhit.point.x - GlobalHelper.GetObjectWorldSize(sandboxSurface).max.x) >=
+							     GlobalHelper.GetObjectWorldSize(selectedObject).extents.x) &&
+							    (Mathf.Abs(selectRayhit.point.z - GlobalHelper.GetObjectWorldSize(sandboxSurface).min.z) >=
+							     GlobalHelper.GetObjectWorldSize(selectedObject).extents.z) &&
+							    (Mathf.Abs(selectRayhit.point.z - GlobalHelper.GetObjectWorldSize(sandboxSurface).max.z) >=
+							     GlobalHelper.GetObjectWorldSize(selectedObject).extents.z)) {
 								selectedObject.transform.position = new Vector3(selectRayhit.point.x,
 									((Vector3)preds.ComposeRelation(voxmlLibrary.VoxMLObjectDict["on"], new object[] {sandboxSurface})).y + surfacePlacementOffset,
 									selectRayhit.point.z);
@@ -191,16 +191,16 @@ public class ModuleObjectCreation : ModalWindow {
 					// Casts the ray and get the first game object hit
 					Physics.Raycast(ray, out selectRayhit);
 					if (selectRayhit.collider != null) {
-						if (Helper.IsSupportedBy(selectRayhit.collider.gameObject.transform.root.gameObject,
+						if (GlobalHelper.IsSupportedBy(selectRayhit.collider.gameObject.transform.root.gameObject,
 							sandboxSurface)) {
 							if (selectRayhit.collider.gameObject.transform.root.gameObject.GetComponent<Voxeme>() !=
 							    null) {
 								selectedObject = selectRayhit.collider.gameObject.transform.root.gameObject;
 								surfacePlacementOffset =
-									(Helper.GetObjectWorldSize(selectedObject.gameObject).center.y -
-									 Helper.GetObjectWorldSize(selectedObject.gameObject).min.y) +
+									(GlobalHelper.GetObjectWorldSize(selectedObject.gameObject).center.y -
+									 GlobalHelper.GetObjectWorldSize(selectedObject.gameObject).min.y) +
 									(selectedObject.gameObject.transform.position.y -
-									 Helper.GetObjectWorldSize(selectedObject.gameObject).center.y);
+									 GlobalHelper.GetObjectWorldSize(selectedObject.gameObject).center.y);
 								SetShader(selectedObject, ShaderType.Highlight);
 								actionButtonText = "Place";
 								placementState = PlacementState.Place;
@@ -284,7 +284,7 @@ public class ModuleObjectCreation : ModalWindow {
 			render = false;
 
 			GameObject go = (GameObject) Instantiate(prefabs[selected]);
-			go.transform.position = Helper.FindClearRegion(sandboxSurface, go).center;
+			go.transform.position = GlobalHelper.FindClearRegion(sandboxSurface, go).center;
 			Debug.Log(go.transform.position);
 			go.SetActive(true);
 			go.name = go.name.Replace("(Clone)", "");
@@ -322,10 +322,10 @@ public class ModuleObjectCreation : ModalWindow {
 			selectedObject = objSelector.allVoxemes.Find(v => v.gameObject.transform.Find(go.name) != null).gameObject;
 			selectedObject.GetComponent<Voxeme>().VoxMLLoaded += VoxMLUpdated;
 
-			surfacePlacementOffset = (Helper.GetObjectWorldSize(selectedObject.gameObject).center.y -
-			                          Helper.GetObjectWorldSize(selectedObject.gameObject).min.y) +
+			surfacePlacementOffset = (GlobalHelper.GetObjectWorldSize(selectedObject.gameObject).center.y -
+			                          GlobalHelper.GetObjectWorldSize(selectedObject.gameObject).min.y) +
 			                         (selectedObject.gameObject.transform.position.y -
-			                          Helper.GetObjectWorldSize(selectedObject.gameObject).center.y);
+			                          GlobalHelper.GetObjectWorldSize(selectedObject.gameObject).center.y);
 			selectedObject.transform.position = new Vector3(go.transform.position.x,
 				((Vector3)preds.ComposeRelation(voxmlLibrary.VoxMLObjectDict["on"], new object[] {sandboxSurface})).y + surfacePlacementOffset,
 				go.transform.position.z);
