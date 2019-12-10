@@ -4394,13 +4394,13 @@ public class JointGestureDemo : SingleAgentInteraction {
 //              (!QSR.Right (otherBounds, blockBounds)) && (RCC8.EC (otherBounds, blockBounds))) {
             Debug.Log(GlobalHelper.RegionToString(blockMax));
             Debug.Log(GlobalHelper.RegionToString(otherMin));
-            Debug.Log(GlobalHelper.RegionToString(GlobalHelper.RegionOfIntersection(blockMax, otherMin, MajorAxis.Y)));
+            Debug.Log(GlobalHelper.RegionToString(GlobalHelper.RegionOfIntersection(blockMax, otherMin, Constants.MajorAxis.Y)));
             Debug.Log(QSR.Above(otherBounds, blockBounds));
             Debug.Log(
-                ((GlobalHelper.RegionOfIntersection(blockMax, otherMin, MajorAxis.Y).Area() / blockMax.Area())));
+                ((GlobalHelper.RegionOfIntersection(blockMax, otherMin, Constants.MajorAxis.Y).Area() / blockMax.Area())));
             Debug.Log(RCC8.EC(otherBounds, blockBounds));
             if ((QSR.Above(otherBounds, blockBounds)) &&
-                ((GlobalHelper.RegionOfIntersection(blockMax, otherMin, MajorAxis.Y).Area() / blockMax.Area()) >
+                ((GlobalHelper.RegionOfIntersection(blockMax, otherMin, Constants.MajorAxis.Y).Area() / blockMax.Area()) >
                  0.25f) &&
                 (RCC8.EC(otherBounds, blockBounds))) {
                 surfaceClear = false;
